@@ -2,9 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:news_getx/controller/news_controller.dart';
 import 'package:news_getx/model/news_model.dart';
+import 'package:news_getx/view/widget/health.dart';
+import 'package:news_getx/view/widget/sports.dart';
+import 'package:news_getx/view/widget/technology.dart';
 
 class HomePage extends GetWidget {
-  NewsController controller = Get.put(NewsController());
+  NewsController controller1 = Get.put(NewsController());
+  List<Widget> screen = [
+    Sports(),
+    Technology(),
+    Health(),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,51 +20,30 @@ class HomePage extends GetWidget {
         title: const Text("News App"),
         centerTitle: true,
       ),
-      body: FutureBuilder(
-        future: controller.getData(),
-        builder: (context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            newsArticles data = snapshot.data;
-            return ListView.builder(
-                itemCount: data.articles!.length,
-                itemBuilder: (context, int index) {
-                  return Card(
-                    elevation: 10,
-                    shadowColor: Colors.black,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Column(
-                      children: [
-                        data.articles![index].urlToImage != null
-                            ? Container(
-                                width: double.infinity,
-                                height: 150,
-                                child: Image.network(
-                                  '${data.articles![index].urlToImage}',
-                                  fit: BoxFit.fill,
-                                ),
-                              )
-                            : const Text(""),
-                        Text(
-                          "${data.articles![index].title}",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                          textDirection: TextDirection.rtl,
-                        ),
-                        Text(
-                          "${data.articles![index].description}",
-                          textDirection: TextDirection.rtl,
-                        ),
-                      ],
-                    ),
-                  );
-                });
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
+      bottomNavigationBar: GetX<NewsController>(
+        builder: (controller) => BottomNavigationBar(
+            selectedItemColor: Colors.red,
+            currentIndex: controller.currentIndex.value,
+            onTap: (val) {
+              controller.currentIndex.value = val;
+            },
+            items: const [
+              BottomNavigationBarItem(
+                label: "Sports",
+                icon: Icon(Icons.sports),
+              ),
+              BottomNavigationBarItem(
+                label: "Technology",
+                icon: Icon(Icons.developer_board),
+              ),
+              BottomNavigationBarItem(
+                label: "Health",
+                icon: Icon(Icons.health_and_safety),
+              )
+            ]),
+      ),
+      body: Obx(
+        () => screen[controller1.currentIndex.value],
       ),
     );
   }
