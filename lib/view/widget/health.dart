@@ -22,32 +22,32 @@ class Health extends GetWidget {
                     shadowColor: Colors.black,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
-                    child: Column(
-                      children: [
-                        data.articles![index].urlToImage != null
-                            ? Container(
+                    child: data.articles![index].urlToImage != null
+                        ? Column(
+                            children: [
+                              Container(
                                 width: double.infinity,
                                 height: 150,
                                 child: Image.network(
                                   '${data.articles![index].urlToImage}',
                                   fit: BoxFit.fill,
                                 ),
-                              )
-                            : const Text(""),
-                        Text(
-                          "${data.articles![index].title}",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                          textDirection: TextDirection.rtl,
-                        ),
-                        Text(
-                          "${data.articles![index].description}",
-                          textDirection: TextDirection.rtl,
-                        ),
-                      ],
-                    ),
+                              ),
+                              Text(
+                                "${data.articles![index].title}",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                                textDirection: TextDirection.rtl,
+                              ),
+                              Text(
+                                "${data.articles![index].description}",
+                                textDirection: TextDirection.rtl,
+                              ),
+                            ],
+                          )
+                        : Container(),
                   );
                 });
           } else {
