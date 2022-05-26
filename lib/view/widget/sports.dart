@@ -4,6 +4,7 @@ import 'package:news_getx/controller/news_controller.dart';
 import 'package:news_getx/model/news_model.dart';
 
 class Sports extends GetWidget {
+  @override
   NewsController controller = Get.put(NewsController());
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class Sports extends GetWidget {
                     child: Column(
                       children: [
                         data.articles![index].urlToImage != null
-                            ? Container(
+                            ? SizedBox(
                                 width: double.infinity,
                                 height: 150,
                                 child: Image.network(

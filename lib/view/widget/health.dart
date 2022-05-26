@@ -4,6 +4,7 @@ import 'package:news_getx/controller/news_controller.dart';
 import 'package:news_getx/model/news_model.dart';
 
 class Health extends GetWidget {
+  @override
   NewsController controller = Get.put(NewsController());
   @override
   Widget build(BuildContext context) {

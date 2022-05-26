@@ -7,12 +7,15 @@ import 'package:news_getx/view/widget/sports.dart';
 import 'package:news_getx/view/widget/technology.dart';
 
 class HomePage extends GetWidget {
+
   NewsController controller1 = Get.put(NewsController());
   List<Widget> screen = [
     Sports(),
     Technology(),
     Health(),
   ];
+
+  HomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +25,7 @@ class HomePage extends GetWidget {
       ),
       bottomNavigationBar: GetX<NewsController>(
         builder: (controller) => BottomNavigationBar(
-            selectedItemColor: Colors.red,
+            selectedItemColor: Colors.teal,
             currentIndex: controller.currentIndex.value,
             onTap: (val) {
               controller.currentIndex.value = val;
